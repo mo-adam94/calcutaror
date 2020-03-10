@@ -10,8 +10,8 @@ import {
 } from 'react-native';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import {Divider} from 'react-native-elements';
-let RNFS = require('react-native-fs');
-let path = RNFS.DocumentDirectoryPath + '/test.txt';
+var RNFS = require('react-native-fs');
+var path = RNFS.DocumentDirectoryPath + '/test.txt';
 
 export default class App extends Component {
   constructor() {
@@ -24,11 +24,7 @@ export default class App extends Component {
       sub: '',
       div: '',
       mul: '',
-      isResult: false,
-      errors: [],
-      errorsObj: {},
       isLoading: false,
-      borderColor: null,
     };
   }
 
@@ -47,6 +43,8 @@ export default class App extends Component {
       .catch(err => {
         console.log(err.message);
       });
+
+      
   };
 
   calculateSub = () => {
