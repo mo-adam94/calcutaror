@@ -10,8 +10,8 @@ import {
 } from 'react-native';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import {Divider} from 'react-native-elements';
-var RNFS = require('react-native-fs');
-var path = RNFS.DocumentDirectoryPath + '/test.txt';
+let RNFS = require('react-native-fs');
+let path = RNFS.DocumentDirectoryPath + '/test.txt';
 
 export default class App extends Component {
   constructor() {
@@ -21,6 +21,9 @@ export default class App extends Component {
       firstValue: '',
       secondValue: '',
       sum: '',
+      sub: '',
+      div: '',
+      mul: '',
       isResult: false,
       errors: [],
       errorsObj: {},
@@ -29,48 +32,70 @@ export default class App extends Component {
     };
   }
 
+
+
   calculateSum = () => {
     const {firstValue, secondValue} = this.state;
-    const sum = Number(firstValue) + Number(secondValue)
+    const sum = Number(firstValue) + Number(secondValue);
     this.setState({
-      sum ,
+      sum,
     });
     RNFS.writeFile(path, sum, 'utf8')
-  .then((success) => {
-    console.log('FILE WRITTEN!');
-  })
-  .catch((err) => {
-    console.log(err.message);
-  });
+      .then(success => {
+        console.log('FILE WRITTEN!');
+      })
+      .catch(err => {
+        console.log(err.message);
+      });
   };
 
   calculateSub = () => {
     const {firstValue, secondValue} = this.state;
-
+    const sub = Number(firstValue) - Number(secondValue);
     this.setState({
-      sum: Number(firstValue) - Number(secondValue),
+      sub,
     });
+    RNFS.writeFile(path, sub, 'utf8')
+      .then(success => {
+        console.log('FILE WRITTEN!');
+      })
+      .catch(err => {
+        console.log(err.message);
+      });
   };
 
   calculateMul = () => {
     const {firstValue, secondValue} = this.state;
-
+    const mul = Number(firstValue) * Number(secondValue);
     this.setState({
-      sum: Number(firstValue) * Number(secondValue),
+      mul,
     });
+    RNFS.writeFile(path, mul, 'utf8')
+      .then(success => {
+        console.log('FILE WRITTEN!');
+      })
+      .catch(err => {
+        console.log(err.message);
+      });
   };
 
   calculateDiv = () => {
     const {firstValue, secondValue} = this.state;
-
+    const div = Number(firstValue) / Number(secondValue);
     this.setState({
-      sum: Number(firstValue) / Number(secondValue),
+      div,
     });
+    RNFS.writeFile(path, div, 'utf8')
+      .then(success => {
+        console.log('FILE WRITTEN!');
+      })
+      .catch(err => {
+        console.log(err.message);
+      });
   };
 
   render() {
-    const {isLoading, errorsObj} = this.state;
-    const {first, second, operator, result} = this.state;
+    const {isLoading} = this.state;
     return (
       <ScrollView>
         <View style={styles.container}>
@@ -105,8 +130,10 @@ export default class App extends Component {
             }}
           />
 
-
-            <Text>Result: {` ${this.state.sum}`}</Text>
+          <Text style={styles.result}>
+            Result: {` ${this.state.sum}`} {` ${this.state.sub}`}
+            {` ${this.state.mul}`} {` ${this.state.div}`}
+          </Text>
 
           <TouchableOpacity style={styles.Sum} onPress={this.calculateSum}>
             {isLoading ? (
@@ -181,5 +208,11 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     marginTop: 25,
     borderRadius: 50,
+  },
+  result: {
+    fontSize: 20,
+    paddingHorizontal: 10,
+    paddingVertical: 10,
+    color: '#000000'
   },
 });
